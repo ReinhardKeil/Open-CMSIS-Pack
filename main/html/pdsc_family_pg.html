@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" style="width: 163px;" src="logo.svg"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Open-CMSIS-Pack
-   &#160;<span id="projectnumber">Version 1.7.2</span>
+   &#160;<span id="projectnumber">Version 1.7.23</span>
    </div>
    <div id="projectbrief">Delivery Mechanism for Software Packs</div>
   </td>
@@ -184,7 +184,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_environment">environment</a> </td><td>Specify tool specific settings. </td><td>EnvironmentType </td><td>0..*  </td></tr>
 <tr>
-<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify features that are available in all members of the device family. </td><td>FeatureType </td><td>0..*  </td></tr>
+<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify features that are available in all members of the device family. </td><td>DeviceFeatureType </td><td>0..*  </td></tr>
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_subFamily">subFamily</a> </td><td>A optional sub-family that is used to group devices. </td><td>group </td><td>0..*  </td></tr>
 <tr>
@@ -207,6 +207,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <div class="line">    &lt;algorithm   .../&gt;</div>
 <div class="line">    &lt;book        .../&gt;</div>
 <div class="line">    &lt;description&gt; Write texte here &lt;/description&gt;</div>
+<div class="line">    &lt;environment&gt; ... &lt;/environment&gt;</div>
 <div class="line">    &lt;feature     .../&gt;</div>
 <div class="line">    &lt;debugport   .../&gt;</div>
 <div class="line">    &lt;debug       .../&gt;</div>
@@ -264,7 +265,9 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_description">description</a> </td><td>Description of the device family. </td><td>DescriptionType </td><td>0..*  </td></tr>
 <tr>
-<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify features available in devices of the sub-family. </td><td>FeatureType </td><td>0..*  </td></tr>
+<td><a class="el" href="pdsc_family_pg.html#element_environment">environment</a> </td><td>Specify tool specific settings. </td><td>EnvironmentType </td><td>0..*  </td></tr>
+<tr>
+<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify features available in devices of the sub-family. </td><td>DeviceFeatureType </td><td>0..*  </td></tr>
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_device">device</a> </td><td>List individual devices that belong to the device sub-family. </td><td>DeviceType </td><td>0..*  </td></tr>
 </table>
@@ -319,9 +322,9 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_description">description</a> </td><td>Description specific to this device. </td><td>DescriptionType </td><td>0..*  </td></tr>
 <tr>
-<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify the features of this device. </td><td>FeatureType </td><td>0..*  </td></tr>
+<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify the features of this device. </td><td>DeviceFeatureType </td><td>0..*  </td></tr>
 <tr>
-<td><a class="el" href="pdsc_family_pg.html#element_feature">environment</a> </td><td>Specify tool options. </td><td>EnvironmentType </td><td>0..*  </td></tr>
+<td><a class="el" href="pdsc_family_pg.html#element_environment">environment</a> </td><td>Specify tool options. </td><td>EnvironmentType </td><td>0..*  </td></tr>
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_debugport">debugport</a> </td><td>Describe a debug port specific to this device. </td><td>DebugPortType </td><td>0..*  </td></tr>
 <tr>
@@ -494,7 +497,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <hr  />
 <h1><a class="anchor" id="element_book"></a>
 /package/devices/family/.../book</h1>
-<p >Specifies documents related to a device. Books can be entered on various levels. The book element contains the location, filename, and extension of the file. The title is used for display purposes.</p>
+<p >Specifies documents related to a device or a part. Books can be entered on various levels. The book element contains the location, the name and the extension of the file. The link to a document on an external web site is also allowed. The title is used for display purposes.</p>
 <p ><b>Example</b> </p><div class="fragment"><div class="line">&lt;family Dfamily=<span class="stringliteral">&quot;STM32F4&quot;</span> Dvendor=<span class="stringliteral">&quot;STMicroelectronics:13&quot;</span>&gt;</div>
 <div class="line">  ...</div>
 <div class="line">  &lt;book name=<span class="stringliteral">&quot;Documents/STM32F40x_DS.PDF&quot;</span> title=<span class="stringliteral">&quot;STM32F40x Data Sheet&quot;</span>/&gt;                 &lt;!-- valid <span class="keywordflow">for</span> all devices of the family  --&gt;</div>
@@ -507,6 +510,17 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <div class="line">    &lt;/device&gt;</div>
 <div class="line">    ...</div>
 <div class="line">&lt;/family&gt;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">&lt;package&gt;</div>
+<div class="line">  ...</div>
+<div class="line">  &lt;parts&gt;</div>
+<div class="line">    &lt;part Hvendor=<span class="stringliteral">&quot;STMicroelectronics&quot;</span> Hname=<span class="stringliteral">&quot;STSAFE-A110&quot;</span> Hvariant=<span class="stringliteral">&quot;STSAFA110DFSPL02&quot;</span> Hclass=<span class="stringliteral">&quot;Secure&quot;</span> Hgroup=<span class="stringliteral">&quot;Authentication&quot;</span>&gt;</div>
+<div class="line">      ...</div>
+<div class="line">      &lt;book name=<span class="stringliteral">&quot;Images/STSAFA110DFSPL02_image.jpg&quot;</span> title=<span class="stringliteral">&quot;image&quot;</span> <span class="keyword">public</span>=<span class="stringliteral">&quot;true&quot;</span>/&gt;</div>
+<div class="line">    &lt;/part&gt;</div>
+<div class="line">    ...</div>
+<div class="line">  &lt;\parts&gt;</div>
+<div class="line">  ...</div>
+<div class="line">&lt;\package&gt;</div>
 </div><!-- fragment --><p >&#160;</p>
 <table class="cmtable" summary="Type: BookType">
 <tr>
@@ -518,11 +532,15 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_device">device</a> </td><td colspan="3"><a class="el" href="pdsc_family_pg.html#element_device">/package/devices/family/../device</a>  </td></tr>
 <tr>
+<td><a class="el" href="pdsc_parts_pg.html#element_part">part</a> </td><td colspan="3"><a class="el" href="pdsc_parts_pg.html#element_part">/package/parts/part</a>  </td></tr>
+<tr>
 <th>Attributes </th><th>Description </th><th>Type </th><th>Use  </th></tr>
 <tr>
-<td>Pname </td><td>Processor identifier. This attribute <b>is mandatory for devices that embed multiple processors and where the book refers to a single processor only</b>. Only alphabetical characters, decimal digits, '-' and '_' are allowed.  </td><td>RestrictedString </td><td>optional  </td></tr>
+<td>Pname </td><td>Processor identifier. This attribute <b>is mandatory for devices that embed multiple processors and where the book refers to a single processor only</b>. Only alphabetical characters, decimal digits, '-' and '_' are allowed. <br  />
+<br  />
+ Must not be used for <a class="el" href="pdsc_parts_pg.html#element_part">package/parts/part</a>. </td><td>RestrictedString </td><td>optional  </td></tr>
 <tr>
-<td>name </td><td>File name of the document including the extension. The document path is relative to the package base folder. Directory/file names are case-sensitive. </td><td>xs:string </td><td>required  </td></tr>
+<td>name </td><td>File name of the document including the extension. The document path is relative to the package base folder. Directory/file names are case-sensitive. The link to a document on an external web site is also allowed. </td><td>xs:string </td><td>required  </td></tr>
 <tr>
 <td>title </td><td>Book title. Can be used for being displayed in various environments. </td><td>xs:string </td><td>required  </td></tr>
 <tr>
@@ -611,7 +629,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <hr  />
 <h1><a class="anchor" id="element_environment"></a>
 /package/devices/family/.../environment</h1>
-<p >Tool-specific elements for a device.</p>
+<p >Tool-specific elements for a device or a part.</p>
 <p >Can occur on various levels.</p>
 <p >Contains information that is specific for a <b>development tool</b> identified by the <em>name</em> attribute. The structure of the <em>element</em> is not specified in the schema file which gives the <b>development tool</b> full control of the <em>element</em> usage.</p>
 <p ><b>Example</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
@@ -639,6 +657,20 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <div class="line">    &lt;/family&gt;</div>
 <div class="line">  &lt;/devices&gt;</div>
 <div class="line">&lt;/package&gt;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">&lt;package&gt;</div>
+<div class="line">  ...</div>
+<div class="line">  &lt;parts&gt;</div>
+<div class="line">    &lt;part Hvendor=<span class="stringliteral">&quot;STMicroelectronics&quot;</span> Hname=<span class="stringliteral">&quot;STSAFE-A110&quot;</span> Hvariant=<span class="stringliteral">&quot;STSAFA110DFSPL02&quot;</span> Hclass=<span class="stringliteral">&quot;Secure&quot;</span> Hgroup=<span class="stringliteral">&quot;Authentication&quot;</span>&gt;</div>
+<div class="line">      ...</div>
+<div class="line">      &lt;environment name=<span class="stringliteral">&quot;SomeConfigTool&quot;</span>&gt;</div>
+<div class="line">        &lt;file&gt;STSAFA110DFSPL02_ConfigFile.cfg&lt;/file&gt;</div>
+<div class="line">      &lt;/environment&gt;</div>
+<div class="line">      ...</div>
+<div class="line">    &lt;/part&gt;</div>
+<div class="line">    ...</div>
+<div class="line">  &lt;parts&gt;</div>
+<div class="line">  ...</div>
+<div class="line">&lt;/package&gt;</div>
 </div><!-- fragment --><p ><br  />
  </p><table class="cmtable" summary="Element: description">
 <tr>
@@ -650,11 +682,15 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_device">device</a> </td><td colspan="3"><a class="el" href="pdsc_family_pg.html#element_device">/package/devices/family/../device</a>  </td></tr>
 <tr>
+<td><a class="el" href="pdsc_parts_pg.html#element_part">part</a> </td><td colspan="3"><a class="el" href="pdsc_parts_pg.html#element_part">/package/parts/part</a>  </td></tr>
+<tr>
 <th>Attributes </th><th>Description </th><th>Type </th><th>Use  </th></tr>
 <tr>
 <td>name </td><td>Name of the development tool (for example, "uv" for uVision) </td><td>xs:string </td><td>required  </td></tr>
 <tr>
-<td>Pname </td><td>Identifies the processor the setting belongs to. Only alphabetical characters, decimal digits, '-' and '_' are allowed.  </td><td>RestrictedString </td><td>optional  </td></tr>
+<td>Pname </td><td>Identifies the processor the setting belongs to. Only alphabetical characters, decimal digits, '-' and '_' are allowed. <br  />
+<br  />
+ Must not be used for <a class="el" href="pdsc_parts_pg.html#element_part">package/parts/part</a>. </td><td>RestrictedString </td><td>optional  </td></tr>
 <tr>
 <th>Child Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
 <tr>
@@ -667,6 +703,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 /package/devices/family/.../feature</h1>
 <p >This element specifies peripherals that devices can have. This can be used on <b>web</b> <b>sites</b> for the display of device features.</p>
 <p >Many device feature types are already predefined, such as timers, converters, Ethernet, USB, etc (for a complete list refer to table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>). Features can be defined on various levels. Inner elements supersede outer elements.</p>
+<p >This element can be used also to describe information about the features and capabilities of a <a class="el" href="pdsc_parts_pg.html#element_part">package/parts/part</a>. The list of the pre-defined features for Devices (<a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>) can be used also for parts.</p>
 <p ><b>Example</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
 <div class="line">  &lt;devices&gt;</div>
 <div class="line">    &lt;family Dfamily=<span class="stringliteral">&quot;STM32F4&quot;</span> Dvendor=<span class="stringliteral">&quot;STMicroelectronics:13&quot;</span>&gt;</div>
@@ -702,6 +739,17 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <div class="line">    &lt;/family&gt;</div>
 <div class="line">  &lt;/devices&gt;</div>
 <div class="line">&lt;/package&gt;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">&lt;package&gt;</div>
+<div class="line">  ...</div>
+<div class="line">  &lt;parts&gt;</div>
+<div class="line">    &lt;part Hvendor=<span class="stringliteral">&quot;STMicroelectronics&quot;</span> Hname=<span class="stringliteral">&quot;STSAFE-A110&quot;</span> Hvariant=<span class="stringliteral">&quot;STSAFA110DFSPL02&quot;</span> Hclass=<span class="stringliteral">&quot;Secure&quot;</span> Hgroup=<span class="stringliteral">&quot;Authentication&quot;</span>&gt;</div>
+<div class="line">      &lt;feature type=<span class="stringliteral">&quot;Crypto&quot;</span> n=<span class="stringliteral">&quot;128.256&quot;</span> name=<span class="stringliteral">&quot;Authentication and security for peripherals and IoT devices from STMicroelectronics&quot;</span>/&gt;</div>
+<div class="line">      ...</div>
+<div class="line">    &lt;/part&gt;</div>
+<div class="line">    ...</div>
+<div class="line">  &lt;\parts&gt;</div>
+<div class="line">  ...</div>
+<div class="line">&lt;\package&gt;</div>
 </div><!-- fragment --><p ><br  />
  </p><table class="cmtable" summary="Element: feature">
 <tr>
@@ -713,15 +761,21 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_device">device</a> </td><td colspan="3"><a class="el" href="pdsc_family_pg.html#element_device">/package/devices/family/../device</a>  </td></tr>
 <tr>
+<td><a class="el" href="pdsc_parts_pg.html#element_part">part</a> </td><td colspan="3"><a class="el" href="pdsc_parts_pg.html#element_part">/package/parts/part</a>  </td></tr>
+<tr>
 <th>Attributes </th><th>Description </th><th>Type </th><th>Use  </th></tr>
 <tr>
-<td>Pname </td><td>Processor Identifier. This attribute <b>is mandatory for devices that embed multiple processors</b>. Only alphabetical characters, decimal digits, '-' and '_' are allowed.  </td><td>RestrictedString </td><td>optional  </td></tr>
+<td>Pname </td><td>Processor Identifier. This attribute <b>is mandatory for devices that embed multiple processors</b>. Only alphabetical characters, decimal digits, '-' and '_' are allowed. <br  />
+<br  />
+ Must not be used for <a class="el" href="pdsc_parts_pg.html#element_part">package/parts/part</a>. </td><td>RestrictedString </td><td>optional  </td></tr>
 <tr>
-<td>type </td><td>A feature (peripheral), such as <span class="XML-Token">CAN</span>, <span class="XML-Token">DMA</span>, <span class="XML-Token">I/O</span>, <span class="XML-Token">LCD</span>, etc. Predefined values must be used as listed in the table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>DeviceFeatureTypeEnum </td><td>required  </td></tr>
+<td>type </td><td>A feature (peripheral), such as <span class="XML-Token">CAN</span>, <span class="XML-Token">DMA</span>, <span class="XML-Token">I/O</span>, <span class="XML-Token">LCD</span>, etc. Predefined values must be used as listed in the table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. <br  />
+<br  />
+ Can be also used to describe the <a class="el" href="pdsc_parts_pg.html#element_part">package/parts/part</a> features. Predefined values must be used as listed in the table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>DeviceFeatureTypeEnum </td><td>required  </td></tr>
 <tr>
-<td>n </td><td>Depends on the element <em><b>type</b>.</em> Check table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>xs:decimal </td><td>optional  </td></tr>
+<td>n </td><td>Depends on the element <em><b>type</b>.</em> Check table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
-<td>m </td><td>Depends on the elemen <em><b>type</b>.</em> Check table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>xs:decimal </td><td>optional  </td></tr>
+<td>m </td><td>Depends on the elemen <em><b>type</b>.</em> Check table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
 <td>name </td><td>Descriptive name of the feature. For example, "16-bit down counting timer". If omitted, the <b>Default Name</b> is used as described in the table <a class="el" href="pdsc_family_pg.html#DeviceFeatureTypeEnum">Device Feature Types</a>. </td><td>xs:string </td><td>optional  </td></tr>
 </table>
@@ -776,104 +830,106 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">QFP   </td><td class="markdownTableBodyNone">Number of Leads   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">QFP   </td><td class="markdownTableBodyNone">&lt;feature type="QFP" n="128" name="Low-Profile QFP Package"/&gt;   </td><td class="markdownTableBodyNone">128-lead Low-Profile QFP Package    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SON   </td><td class="markdownTableBodyNone">Number of Leads   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">SON   </td><td class="markdownTableBodyNone">&lt;feature type="SON" n="16" name="SSON Package"/&gt;   </td><td class="markdownTableBodyNone">16-lead SSON Package    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">SOP   </td><td class="markdownTableBodyNone">Number of Leads   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">SOP   </td><td class="markdownTableBodyNone">&lt;feature type="SOP" n="16" name="SSOP Package"/&gt;   </td><td class="markdownTableBodyNone">16-lead SSOP Package    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">DIP   </td><td class="markdownTableBodyNone">Number of Leads   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">SOP   </td><td class="markdownTableBodyNone">&lt;feature type="DIP" n="16" name="Dual In-Line Package"/&gt;   </td><td class="markdownTableBodyNone">16-lead Dual In-Line Package    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">DIP   </td><td class="markdownTableBodyNone">Number of Leads   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">DIP   </td><td class="markdownTableBodyNone">&lt;feature type="DIP" n="16" name="Dual In-Line Package"/&gt;   </td><td class="markdownTableBodyNone">16-lead Dual In-Line Package    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">PackageOther   </td><td class="markdownTableBodyNone">Number of Pins   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Other Package Type   </td><td class="markdownTableBodyNone">&lt;feature type="PackageOther" n="44" name="My other Package"/&gt;   </td><td class="markdownTableBodyNone">44-contacts My other Package    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">IOs   </td><td class="markdownTableBodyNone">Number of I/Os   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Inputs/Outputs   </td><td class="markdownTableBodyNone">&lt;feature type="IOs" n="112" name="General Purpose I/Os, 5V tolerant"/&gt;   </td><td class="markdownTableBodyNone">112 General Purpose I/Os, 5V tolerant    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ExtInt   </td><td class="markdownTableBodyNone">Number of External Interrupts   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">External Interrupts   </td><td class="markdownTableBodyNone">&lt;feature type="ExtInt" n="12"/&gt;   </td><td class="markdownTableBodyNone">12 External Interrupts    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Temp   </td><td class="markdownTableBodyNone">Minimum Operating Temperature   </td><td class="markdownTableBodyNone">Maximum Operating Temperature   </td><td class="markdownTableBodyNone">Operating Temperature Range   </td><td class="markdownTableBodyNone">&lt;feature type="Temp" n="-40" m="105" name="Extended Operating Temperature Range"/&gt;   </td><td class="markdownTableBodyNone">-40 °C .. +105 °C Extended Operating Temperature Range    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ADC   </td><td class="markdownTableBodyNone">Number of Channels   </td><td class="markdownTableBodyNone">Resolution in Bit   </td><td class="markdownTableBodyNone">ADC   </td><td class="markdownTableBodyNone">&lt;feature type="ADC" n="5" m="12" name="High-Performance ADC"/&gt;   </td><td class="markdownTableBodyNone">5-channel x 12-bit High-Performance ADC    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">DAC   </td><td class="markdownTableBodyNone">Number of Channels   </td><td class="markdownTableBodyNone">Resolution in Bit   </td><td class="markdownTableBodyNone">DAC   </td><td class="markdownTableBodyNone">&lt;feature type="DAC" n="2" m="10"/&gt;   </td><td class="markdownTableBodyNone">2 x 12-bit DAC    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">TempSens   </td><td class="markdownTableBodyNone">Number of Sensors   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Temperature Sensor   </td><td class="markdownTableBodyNone">&lt;feature type="TempSens" n="1"/&gt;   </td><td class="markdownTableBodyNone">1 x Temperature Sensor    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">AnalogOther   </td><td class="markdownTableBodyNone">Number of Features   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Other Analog Peripheral   </td><td class="markdownTableBodyNone">&lt;feature type="AnalogOther" n="1" name="My Analog"/&gt;   </td><td class="markdownTableBodyNone">1 x My Analog    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Timer   </td><td class="markdownTableBodyNone">Number of Channels   </td><td class="markdownTableBodyNone">Resolution in Bit   </td><td class="markdownTableBodyNone">Timer/Counter Module   </td><td class="markdownTableBodyNone">&lt;feature type="Timer" n="2" m="32" name="Timer Module with Quadrature Encoding"/&gt;   </td><td class="markdownTableBodyNone">2 x 32-bit Timer Module with Quadrature Encoding    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">PWM   </td><td class="markdownTableBodyNone">Number of Channels   </td><td class="markdownTableBodyNone">Resolution in Bit   </td><td class="markdownTableBodyNone">PWM   </td><td class="markdownTableBodyNone">&lt;feature type="PWM" n="2" m="16" name="Pulse Width Modulation"/&gt;   </td><td class="markdownTableBodyNone">2 x 16-bit Pulse Width Modulation    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">WDT   </td><td class="markdownTableBodyNone">Number of Watchdogs   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Watchdog   </td><td class="markdownTableBodyNone">&lt;feature type="WDT" n="1"/&gt;   </td><td class="markdownTableBodyNone">1 x Watchdog Timer    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">TimerOther   </td><td class="markdownTableBodyNone">Number of Features   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Other Timer Peripheral   </td><td class="markdownTableBodyNone">&lt;feature type="TimerOther" n="1" name="Quadrature En-/Decoder"/&gt;   </td><td class="markdownTableBodyNone">1 x Quadrature En-/Decoder    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">MPSerial   </td><td class="markdownTableBodyNone">Number of Serial Peripherals   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Multi-Purpose Serial Peripheral   </td><td class="markdownTableBodyNone">&lt;feature type="MPSerial" n="4" name="Multi-Purpose Serial Interface Module: I2C, I2S, SPI, UART"/&gt;   </td><td class="markdownTableBodyNone">4 x Multi-Purpose Serial Interface Module: I2C, I2S, SPI, UART    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">CAN   </td><td class="markdownTableBodyNone">Number of CAN Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">CAN   </td><td class="markdownTableBodyNone">&lt;feature type="CAN" n="2" name="CAN 2.0b Controller"/&gt;   </td><td class="markdownTableBodyNone">2 x CAN 2.0b Controller    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ETH   </td><td class="markdownTableBodyNone">Number of Ethernet Interfaces   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">Ethernet   </td><td class="markdownTableBodyNone">&lt;feature type="ETH" n="1" m="10000000" name="Integrated Ethernet MAC with PHY"/&gt;   </td><td class="markdownTableBodyNone">1 x 10 Mbit/s Integrated Ethernet MAC with PHY    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">I2C   </td><td class="markdownTableBodyNone">Number of I2C Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">I2C   </td><td class="markdownTableBodyNone">&lt;feature type="I2C" n="2"name="Low-Power I2C"/&gt;   </td><td class="markdownTableBodyNone">2 x Low-Power I2C    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">I2S   </td><td class="markdownTableBodyNone">Number of I2S Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">I2S   </td><td class="markdownTableBodyNone">&lt;feature type="I2S" n="3"/&gt;   </td><td class="markdownTableBodyNone">3 x I2S    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">LIN   </td><td class="markdownTableBodyNone">Number of LIN Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">LIN   </td><td class="markdownTableBodyNone">&lt;feature type="LIN" n="4"/&gt;   </td><td class="markdownTableBodyNone">4 x LIN    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">SDIO   </td><td class="markdownTableBodyNone">Number of SDIO Interfaces   </td><td class="markdownTableBodyNone">Bitwidth of SDIO Interface   </td><td class="markdownTableBodyNone">SDIO   </td><td class="markdownTableBodyNone">&lt;feature type="SDIO" n="1" m="4" name="SDIO Interface"/&gt;   </td><td class="markdownTableBodyNone">1 x 4-bit SDIO Interface    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">SPI   </td><td class="markdownTableBodyNone">Number of SPI Interfaces   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">SPI   </td><td class="markdownTableBodyNone">&lt;feature type="SPI" n="2" m="20000000" name="SPI Interface"/&gt;   </td><td class="markdownTableBodyNone">2 x 20 Mbit/s SPI Interface    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">UART   </td><td class="markdownTableBodyNone">Number of UART Interfaces   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">UART   </td><td class="markdownTableBodyNone">&lt;feature type="UART" n="4" m="3000000" name="High-Speed UART Interface"/&gt;   </td><td class="markdownTableBodyNone">4 x 3 Mbit/s High-Speed UART Interface    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">USART   </td><td class="markdownTableBodyNone">Number of USART Interfaces   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">USART   </td><td class="markdownTableBodyNone">&lt;feature type="USART" n="2" m="1000000" name="High-Speed USART Interface"/&gt;   </td><td class="markdownTableBodyNone">2 x 1 Mbit/s High-Speed USART Interface    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">USBD   </td><td class="markdownTableBodyNone">Number of USB Dvice Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">USB Device   </td><td class="markdownTableBodyNone">&lt;feature type="USBD" n="2" name="Full-Speed USB Device"/&gt;   </td><td class="markdownTableBodyNone">2 x Full-Speed USB Device    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">USBH   </td><td class="markdownTableBodyNone">Number of USB Host Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">USB Host   </td><td class="markdownTableBodyNone">&lt;feature type="USBH" n="2" name="High-Speed USB Host"/&gt;   </td><td class="markdownTableBodyNone">2 x High-Speed USB Host    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">USBOTG   </td><td class="markdownTableBodyNone">Number of USB OTG Interfaces   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">USB OTG   </td><td class="markdownTableBodyNone">&lt;feature type="USBOTG" n="1" name="High-Speed USB OTG with PHY"/&gt;   </td><td class="markdownTableBodyNone">1 x High-Speed USB OTG with PHY    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ComOther   </td><td class="markdownTableBodyNone">Number of other Communication Peripherals   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Other Communication Peripheral   </td><td class="markdownTableBodyNone">&lt;feature type="ComOther" n="1" name="ZigBee"/&gt;   </td><td class="markdownTableBodyNone">1 x ZigBee    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Camera   </td><td class="markdownTableBodyNone">Number of Camera Interface   </td><td class="markdownTableBodyNone">Resolution in Bit   </td><td class="markdownTableBodyNone">Camera Interface   </td><td class="markdownTableBodyNone">&lt;feature type="Camera" n="1" m="8" name="Digital Camera Interface"/&gt;   </td><td class="markdownTableBodyNone">1 x 8-bit Digital Camera Interface    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">GLCD   </td><td class="markdownTableBodyNone">Number of Graphic LCD Controller   </td><td class="markdownTableBodyNone">Maximum Resolution as a decimal number (see example)   </td><td class="markdownTableBodyNone">Graphic LCD Controller   </td><td class="markdownTableBodyNone">&lt;feature type="GLCD" n="1" m="320.240" name="TFT LCD Controller"/&gt;   </td><td class="markdownTableBodyNone">1 x 320 x 480 pixel TFT LCD Controller    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LCD   </td><td class="markdownTableBodyNone">Number of Segment LCD Controller   </td><td class="markdownTableBodyNone">Com.Seg as a decimal number (see example)   </td><td class="markdownTableBodyNone">Segment LCD Controller   </td><td class="markdownTableBodyNone">&lt;feature type="LCD" n="1" m="16.40" name="Segment LCD Controller"/&gt;   </td><td class="markdownTableBodyNone">1 x 16 x 40 Segment LCD Controller    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Touch   </td><td class="markdownTableBodyNone">Number of Touch Channels   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Capacitive Touch Inputs   </td><td class="markdownTableBodyNone">&lt;feature type="Touch" n="10" name="Capacitive Touch Inputs"/&gt;   </td><td class="markdownTableBodyNone">10 x Capacitive Touch Inputs    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Other   </td><td class="markdownTableBodyNone">Number of Features   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">Other Feature   </td><td class="markdownTableBodyNone">&lt;feature type="Other" n="2" name="My other Interface"/&gt;   </td><td class="markdownTableBodyNone">2 x My other Interface    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">GPU   </td><td class="markdownTableBodyNone">IP Name   </td><td class="markdownTableBodyNone">Number of Shaders   </td><td class="markdownTableBodyNone">GPU   </td><td class="markdownTableBodyNone">&lt;feature type="GPU" n="Mali G71" m="1024"/&gt;   </td><td class="markdownTableBodyNone">Mali G71 GPU with 1024 Shaders    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">AI   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">AI   </td><td class="markdownTableBodyNone">&lt;feature type="AI"/&gt;   </td><td class="markdownTableBodyNone">AI accelerator    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">FPGA   </td><td class="markdownTableBodyNone">Number of Logic Elements   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">FPGA Array   </td><td class="markdownTableBodyNone">&lt;feature type="FPGA" n="100000"/&gt;   </td><td class="markdownTableBodyNone">FPGA with 100000 Logic Elements    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Application   </td><td class="markdownTableBodyNone">Automotive, Industrial, Medical, MilAero   </td><td class="markdownTableBodyNone">Standard Name   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">&lt;feature type="Application" n="Automotive" m="ISO 26262"/&gt;   </td><td class="markdownTableBodyNone">Automotive ISO 26262 Applications    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">IrDA   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">Infrared   </td><td class="markdownTableBodyNone">&lt;feature type="IrDA" n="" m="1000000"/&gt;   </td><td class="markdownTableBodyNone">IrDA 1 Mbit/s    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">HDMI   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">HDMI   </td><td class="markdownTableBodyNone">&lt;feature type="HDMI" n="1.3"/&gt;   </td><td class="markdownTableBodyNone">HDMI 1.3    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">MIPI   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">MIPI   </td><td class="markdownTableBodyNone">&lt;feature type="MIPI" n="CSI" m="5000000000"/&gt;   </td><td class="markdownTableBodyNone">MIPI CSI 5 Gbit/s    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">PCIe   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">PCIe   </td><td class="markdownTableBodyNone">&lt;feature type="PCIe" n="3.0" m="3000000000"/&gt;   </td><td class="markdownTableBodyNone">PCIe 3.0 3 GT/s    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Bluetooth   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">Bluetooth   </td><td class="markdownTableBodyNone">&lt;feature type="Bluetooth" n="4.2" name="Bluetooth Low Energy"/&gt;   </td><td class="markdownTableBodyNone">Bluetooth Low Energy 4.2    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ZigBee   </td><td class="markdownTableBodyNone">Application Profile   </td><td class="markdownTableBodyNone">Data Rate in Bit/s   </td><td class="markdownTableBodyNone">ZigBee   </td><td class="markdownTableBodyNone">&lt;feature type="Zigbee" n="Home Automation 2.1"/&gt;   </td><td class="markdownTableBodyNone">ZigBee Home Automation 1.2    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">802.15.4   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">N/A   </td><td class="markdownTableBodyNone">802.15.4   </td><td class="markdownTableBodyNone">&lt;feature type="802.15.4" n="802.15.4d"/&gt;   </td><td class="markdownTableBodyNone">802.15.4d    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">WiFi   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">WiFi   </td><td class="markdownTableBodyNone">&lt;feature type="WiFi" n="802.11ac"/&gt;   </td><td class="markdownTableBodyNone">802.11ac WiFi    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">LoRa   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">LoRa   </td><td class="markdownTableBodyNone">&lt;feature type="LoRa"/&gt;   </td><td class="markdownTableBodyNone">LoRa    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LTE Cat-M   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">LTE Cat-M   </td><td class="markdownTableBodyNone">&lt;feature type="LTE-M" n="M1" m="1000000"/&gt;   </td><td class="markdownTableBodyNone">LTE-M M1 1 Mbit/s    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">NB-IoT   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">NB IoT   </td><td class="markdownTableBodyNone">&lt;feature type="NB-IoT" n="NB1" m="250000"/&gt;   </td><td class="markdownTableBodyNone">NB-IoT NB1 250 kbit/s    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">NFC   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">NFC   </td><td class="markdownTableBodyNone">&lt;feature type="NFC" n="ISO 18092"/&gt;   </td><td class="markdownTableBodyNone">NFC ISO 18092    </td></tr>
+<td class="markdownTableBodyNone">NB-IoT   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">NB IoT   </td><td class="markdownTableBodyNone">&lt;feature type="NB-IoT" n="NB1" m="250000"/&gt;   </td><td class="markdownTableBodyNone">NB-IoT NB1 250 kbit/s    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">NFC   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">NFC   </td><td class="markdownTableBodyNone">&lt;feature type="NFC" n="ISO 18092"/&gt;   </td><td class="markdownTableBodyNone">NFC ISO 18092    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">WirelessOther   </td><td class="markdownTableBodyNone">Standard Version   </td><td class="markdownTableBodyNone">Maximum Data Rate in Bit/s   </td><td class="markdownTableBodyNone">Other Wireless Connectivity   </td><td class="markdownTableBodyNone">&lt;feature type="WirelessOther" n="MyStandard" m="1000000"/&gt;   </td><td class="markdownTableBodyNone">MyStandard 1 Mbit/s Wireless Connectivity   </td></tr>
 </table>
 <p >&#160;</p>
@@ -980,7 +1036,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <hr  />
 <p ><a class="anchor" id="MemoryAccessTypeString"></a><b>Table: Memory Access Attribute String</b></p>
 <p >The table lists the letters and their meaning for use in the access attribute string. The values can be used in:</p><ul>
-<li><a class="el" href="pdsc_family_pg.html#element_memory">/package/devices/family/.../memory</a></li>
+<li><a class="el" href="pdsc_family_pg.html#element_memory">/package/devices/family/.../memory</a>, <a class="el" href="pdsc_boards_pg.html#element_board_memory">/package/boards/board/memory</a></li>
 </ul>
 <table class="cmtable" summary="Memory Access Permission Attributes">
 <tr>
@@ -1046,21 +1102,23 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td>Punits </td><td>Specifies the number of processor units in a symmetric multi-processor core (MPCore). Defaults to single-core CPU (<span class="XML-Token">1</span>) when left empty. </td><td>InstancesType </td><td>required for all multi-core devices  </td></tr>
 <tr>
-<td>Dcore </td><td>Specifies the processor core. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DcoreEnum">Device Cores</a>. </td><td>DcoreEnum </td><td>required  </td></tr>
+<td>Dcore </td><td>Specifies the processor core. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DcoreEnum">Device Cores</a>. </td><td><a class="el" href="pdsc_family_pg.html#DcoreEnum">DcoreEnum</a> </td><td>required  </td></tr>
 <tr>
-<td>Dfpu </td><td>Specifies whether a hardware Floating Point Unit is present in the processor. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DfpuEnum">Device FPU</a>. </td><td>DfpuEnum </td><td>required  </td></tr>
+<td>Dfpu </td><td>Specifies whether a hardware Floating Point Unit is present in the processor. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DfpuEnum">Device FPU</a>. </td><td><a class="el" href="pdsc_family_pg.html#DfpuEnum">DfpuEnum</a> </td><td>required  </td></tr>
 <tr>
-<td>Dmpu </td><td>Specifies whether a Memory Protection Unit is present in the processor. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DmpuEnum">Device MPU</a>. </td><td>DmpuEnum </td><td>required  </td></tr>
+<td>Dmpu </td><td>Specifies whether a Memory Protection Unit is present in the processor. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DmpuEnum">Device MPU</a>. </td><td><a class="el" href="pdsc_family_pg.html#DmpuEnum">DmpuEnum</a> </td><td>required  </td></tr>
 <tr>
-<td>Dtz </td><td>Specifies whether an Armv8-M based device implements TrustZone. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DtzEnum">Device TZ</a>. </td><td>DtzEnum </td><td>required for ARMv8-M based devices  </td></tr>
+<td>Dtz </td><td>Specifies whether an Armv8-M based device implements TrustZone. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DtzEnum">Device TZ</a>. </td><td><a class="el" href="pdsc_family_pg.html#DtzEnum">DtzEnum</a> </td><td>required for ARMv8-M based devices  </td></tr>
 <tr>
-<td>Ddsp </td><td>Specifies whether a device supports the DSP instructions set. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DdspEnum">Device DSP</a>. </td><td><a class="el" href="pdsc_family_pg.html#DdspEnum">DdspEnum</a> DdspEnum </td><td>required  </td></tr>
+<td>Ddsp </td><td>Specifies whether a device supports the DSP instructions set. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DdspEnum">Device DSP</a>. </td><td><a class="el" href="pdsc_family_pg.html#DdspEnum">DdspEnum</a> </td><td>required  </td></tr>
 <tr>
-<td>Dmve </td><td>Specifies whether a device supports the M-Profile Vector instruction set extension. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DmveEnum">Device MVE</a>. </td><td><a class="el" href="pdsc_family_pg.html#DmveEnum">DmveEnum</a> DmveEnum </td><td>required for ARMv8.1-M based devices  </td></tr>
+<td>Dmve </td><td>Specifies whether a device supports the M-Profile Vector instruction set extension. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DmveEnum">Device MVE</a>. </td><td><a class="el" href="pdsc_family_pg.html#DmveEnum">DmveEnum</a> </td><td>required for ARMv8.1-M based devices  </td></tr>
 <tr>
-<td>Dcdecp </td><td>Specifies whether a device implements Custom Datapath Extension Coprocessors and which coprocessor interfaces can be used. See (<a href="https://developer.arm.com/documentation/ddi0607/ab/" target="_blank"><b>CDE</b></a>). Possible values are explained in <a class="el" href="pdsc_family_pg.html#DcdecpEnum">Custom Datapath Extensions</a>. </td><td>Hex8BitType </td><td>required for ARMv8.1-M based devices with CDE support  </td></tr>
+<td>Dcdecp </td><td>Specifies whether a device implements Custom Datapath Extension Coprocessors and which coprocessor interfaces can be used. See (<a href="https://developer.arm.com/documentation/ddi0607/ab/" target="_blank"><b>CDE</b></a>). Possible values are explained in <a class="el" href="pdsc_family_pg.html#DcdecpEnum">Custom Datapath Extensions</a>. </td><td><a class="el" href="pdsc_family_pg.html#DcdecpEnum">DcdecpEnum</a> </td><td>required for ARMv8.1-M based devices with CDE support  </td></tr>
 <tr>
-<td>Dendian </td><td>Specifies the endianess of the processor. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DendianEnum">Endinaness</a>. </td><td>DendianEnum </td><td>required  </td></tr>
+<td>Dpacbti </td><td>Specifies whether a device implements Pointer Authentication/Branch Target Identification (PAC/BTI) instructions. Possible values are explained in <a class="el" href="pdsc_family_pg.html#DpacbtiEnum">Device PAC/BTI</a>. </td><td><a class="el" href="pdsc_family_pg.html#DpacbtiEnum">DpacbtiEnum</a> </td><td>required for ARMv8.1-M based devices with PAC/BTI support  </td></tr>
+<tr>
+<td>Dendian </td><td>Specifies the endianess of the processor. Use predefined values as listed in the table <a class="el" href="pdsc_family_pg.html#DendianEnum">Endinaness</a>. </td><td><a class="el" href="pdsc_family_pg.html#DendianEnum">DendianEnum</a> </td><td>required  </td></tr>
 <tr>
 <td>Dclock </td><td>Specifies the max clock frequency of the processor subsystem </td><td>xs:unsignedInt </td><td>required  </td></tr>
 <tr>
@@ -1079,10 +1137,15 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <li><a class="el" href="pdsc_examples_pg.html#element_example_board">/package/examples/example/board</a></li>
 <li><a class="el" href="pdsc_boards_pg.html#element_board_compatibleDevice">/package/boards/board/compatibleDevice</a></li>
 <li><a class="el" href="pdsc_generators_pg.html#element_gen_select">/package/generators/generator/select</a></li>
+<li><a class="el" href="pdsc_parts_pg.html#element_part">/package/parts/part</a></li>
 </ul>
 <table class="cmtable" summary="Enumeration: DeviceVendorEnum">
 <tr>
 <th>Dvendor </th><th>Description </th><th>Web Link  </th></tr>
+<tr>
+<td class="XML-Token">NO_VENDOR:0 </td><td>No Vendor </td><td></td></tr>
+<tr>
+<td class="XML-Token">3PEAK:177 </td><td>3PEAK </td><td><a href="https://www.3peakic.com.cn/">https://www.3peakic.com.cn/</a>  </td></tr>
 <tr>
 <td class="XML-Token">ABOV Semiconductor:126 </td><td>ABOV Semiconductor </td><td><a href="http://www.abov.co.kr/en/">http://www.abov.co.kr/en/</a>  </td></tr>
 <tr>
@@ -1144,13 +1207,19 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td class="XML-Token">Hilscher:88 </td><td>Hilscher Gesellschaft für Systemautomation mbH </td><td><a href="http://www.hilscher.com">http://www.hilscher.com</a>  </td></tr>
 <tr>
+<td class="XML-Token">Himax:178 </td><td>Himax Technologies, Inc. </td><td><a href="https://www.himax.com.tw/">https://www.himax.com.tw/</a>  </td></tr>
+<tr>
 <td class="XML-Token">Holtek:106 </td><td>Holtek Microelectronics </td><td><a href="http://www.holtek.com.tw">http://www.holtek.com.tw</a>  </td></tr>
 <tr>
 <td class="XML-Token">Infineon:7 </td><td>Infineon Technologies </td><td><a href="http://www.infineon.com">http://www.infineon.com</a>  </td></tr>
 <tr>
+<td class="XML-Token">Jonzic:174 </td><td>Shanghai Jonzic Electronic Co., Ltd </td><td><a href="http://www.jonzic.cn">http://www.jonzic.cn</a>  </td></tr>
+<tr>
 <td class="XML-Token">LAPIS Technology:10 </td><td>LAPIS Technology </td><td><a href="http://www.lapis-tech.com">http://www.lapis-tech.com</a>  </td></tr>
 <tr>
 <td class="XML-Token">Linear Technolgy:136 </td><td>Linear Technolgy </td><td><a href="http://www.linear.com/">http://www.linear.com/</a>  </td></tr>
+<tr>
+<td class="XML-Token">Linkedsemi:175 </td><td>LinkedSemi Microelectronics (Xiamen) Co., Ltd </td><td><a href="https://www.linkedsemi.com/">https://www.linkedsemi.com/</a>  </td></tr>
 <tr>
 <td class="XML-Token">Maxim:23 </td><td>Maxim Integrated </td><td><a href="http://www.maximintegrated.com">http://www.maximintegrated.com</a>  </td></tr>
 <tr>
@@ -1178,6 +1247,8 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td class="XML-Token">Panasonic:131 </td><td>Panasonic </td><td><a href="http://www.panasonic.com/industrial">http://www.panasonic.com/industrial</a>  </td></tr>
 <tr>
+<td class="XML-Token">Puya:176 </td><td>Puya </td><td><a href="https://www.puyasemi.com/">https://www.puyasemi.com/</a>  </td></tr>
+<tr>
 <td class="XML-Token">Realtek Semiconductor:124 </td><td>Realtek Semiconductor </td><td><a href="http://www.realtek.com">http://www.realtek.com</a>  </td></tr>
 <tr>
 <td class="XML-Token">Redpine Signals:125 </td><td>Repine Signals </td><td><a href="http://www.redpinesignals.com">http://www.redpinesignals.com</a>  </td></tr>
@@ -1202,6 +1273,8 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td class="XML-Token">SmartChip:156 </td><td>SmartChip </td><td></td></tr>
 <tr>
+<td class="XML-Token">Socionext:171 </td><td>Socionext </td><td><a href="https://www.socionext.com">https://www.socionext.com</a>  </td></tr>
+<tr>
 <td class="XML-Token">Spansion:100 </td><td>Spansion (previously Fujitsu) </td><td><a href="http://www.spansion.com">http://www.spansion.com</a>  </td></tr>
 <tr>
 <td class="XML-Token">STMicroelectronics:13 </td><td>STMicroelectronics </td><td><a href="http://www.st.com">http://www.st.com</a>  </td></tr>
@@ -1209,6 +1282,8 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <td class="XML-Token">Synwit:144 </td><td>Synwit Technology Co.,LTD. </td><td><a href="http://www.synwit.cn">http://www.synwit.cn</a>  </td></tr>
 <tr>
 <td class="XML-Token">Texas Instruments:16 </td><td>Texas Instruments </td><td><a href="http://www.ti.com">http://www.ti.com</a>  </td></tr>
+<tr>
+<td class="XML-Token">ThinkTech:172 </td><td>ThinkTech </td><td><a href="http://www.ThinkTech.net.cn">http://www.ThinkTech.net.cn</a>  </td></tr>
 <tr>
 <td class="XML-Token">Toshiba:92 </td><td>Toshiba Semiconductor </td><td><a href="http://toshiba.semicon-storage.com">http://toshiba.semicon-storage.com</a>  </td></tr>
 <tr>
@@ -1224,8 +1299,6 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td class="XML-Token">Xiamen PengPai Microelectronics Co. Ltd:166 </td><td>Pai IC </td><td><a href="https://www.pai-ic.com">https://www.pai-ic.com</a>  </td></tr>
 <tr>
-<td class="XML-Token">Xinnova:135 </td><td>Xinnova Technology </td><td>(n/a)  </td></tr>
-<tr>
 <td class="XML-Token">XMC:158 </td><td>Wuhan Xinxin Semiconductor Manufacturing Co., Ltd. </td><td><a href="http://www.xmcwh.com/">http://www.xmcwh.com/</a>  </td></tr>
 <tr>
 <td class="XML-Token">Zilog:89 </td><td>Zilog </td><td><a href="http://zilog.com/">http://zilog.com/</a>  </td></tr>
@@ -1233,7 +1306,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <p >&#160;</p>
 <p ><a class="anchor" id="AlgorithmStyleEnum"></a><b>Table: Algorithm Styles</b></p>
 <p >The table lists the predefined Flash algorithm style. These values can be used in:</p><ul>
-<li><a class="el" href="pdsc_family_pg.html#element_algorithm">/package/devices/family/.../algorithm</a></li>
+<li><a class="el" href="pdsc_family_pg.html#element_algorithm">/package/devices/family/.../algorithm</a>, <a class="el" href="pdsc_boards_pg.html#element_board_algorithm">/package/boards/board/algorithm</a></li>
 </ul>
 <table class="cmtable" summary="Enumeration: AlgorithmStyleEnum">
 <tr>
@@ -1259,66 +1332,72 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <th>Dcore= </th><th>Description  </th></tr>
 <tr>
-<td class="XML-Token">Cortex-M0 </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m0" target="_blank">Arm Cortex-M0</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M0 </td><td><a href="https://developer.arm.com/processors/cortex-m0" target="_blank">Arm Cortex-M0</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M0+ </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m0-plus" target="_blank">Arm Cortex-M0+</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M0+ </td><td><a href="https://developer.arm.com/processors/cortex-m0-plus" target="_blank">Arm Cortex-M0+</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M1 </td><td><a href="http://www.arm.com/products/processors/cortex-m/cortex-m1.php" target="_blank">Arm Cortex-M1</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M1 </td><td><a href="https://developer.arm.com/processors/cortex-m1" target="_blank">Arm Cortex-M1</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M3 </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m3" target="_blank">Arm Cortex-M3</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M3 </td><td><a href="https://developer.arm.com/processors/cortex-m3" target="_blank">Arm Cortex-M3</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M4 </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m4" target="_blank">Arm Cortex-M4</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M4 </td><td><a href="https://developer.arm.com/processors/cortex-m4" target="_blank">Arm Cortex-M4</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M7 </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m7" target="_blank">Arm Cortex-M7</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M7 </td><td><a href="https://developer.arm.com/processors/cortex-m7" target="_blank">Arm Cortex-M7</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M23 </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m23" target="_blank">Arm Cortex-M23</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M23 </td><td><a href="https://developer.arm.com/processors/cortex-m23" target="_blank">Arm Cortex-M23</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M33 </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m33" target="_blank">Arm Cortex-M33</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M33 </td><td><a href="https://developer.arm.com/processors/cortex-m33" target="_blank">Arm Cortex-M33</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M35P </td><td><a href="http://developer.arm.com/products/processors/cortex-m/cortex-m35p" target="_blank">Arm Cortex-M35P</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-M35P </td><td><a href="https://developer.arm.com/processors/cortex-m35p" target="_blank">Arm Cortex-M35P</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-M55 </td><td><a href="http://developer.arm.com/ip-products/processors/cortex-m/cortex-m55" target="_blank">Arm Cortex-M55</a> processor based device  <br  />
+<td class="XML-Token">Cortex-M55 </td><td><a href="https://developer.arm.com/processors/cortex-m55" target="_blank">Arm Cortex-M55</a> processor based device  <br  />
  </td></tr>
 <tr>
-<td class="XML-Token">SC000 </td><td>SecurCore <a href="http://developer.arm.com/products/processors/cortex-m/sc000-processor" target="_blank">SC000</a> based on technology of Cortex-M0.  </td></tr>
+<td class="XML-Token">Cortex-M85 </td><td><a href="https://developer.arm.com/processors/cortex-m85" target="_blank">Arm Cortex-M85</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">SC300 </td><td>SecurCore <a href="http://developer.arm.com/products/processors/cortex-m/sc300-processor" target="_blank">SC300</a> based on technology of Cortex-M3.  </td></tr>
+<td class="XML-Token">Star-MC1 </td><td><a href="https://www.armchina.com/mountain?infoId=160" target="_blank">ArmChina STAR-MC1</a> processor based device  </td></tr>
+<tr>
+<td class="XML-Token">SC000 </td><td>SecurCore <a href="https://developer.arm.com/processors/securcore%20sc000" target="_blank">SC000</a> based on technology of Cortex-M0.  </td></tr>
+<tr>
+<td class="XML-Token">SC300 </td><td>SecurCore <a href="https://developer.arm.com/processors/securcore%20sc300" target="_blank">SC300</a> based on technology of Cortex-M3.  </td></tr>
 <tr>
 <td class="XML-Token">ARMV8MBL </td><td>Processor <a href="http://developer.arm.com/products/architecture/m-profile" target="_blank">ArmV8MBL</a> compliant with the Armv8-M Baseline Architecture.  </td></tr>
 <tr>
 <td class="XML-Token">ARMV8MML </td><td>Processor <a href="http://developer.arm.com/products/architecture/m-profile" target="_blank">ArmV8MML</a> compliant with the Armv8-M Mainline Architecture.  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-R4 </td><td><a href="http://developer.arm.com/products/processors/cortex-r/cortex-r4" target="_blank">Arm Cortex-R4</a> processor based device  </td></tr>
+<td class="XML-Token">ARMV81MML </td><td>Processor <a href="http://developer.arm.com/products/architecture/m-profile" target="_blank">ArmV81MML</a> compliant with the Armv8.1-M Mainline Architecture.  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-R5 </td><td><a href="http://developer.arm.com/products/processors/cortex-r/cortex-r5" target="_blank">Arm Cortex-R5</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-R4 </td><td><a href="https://developer.arm.com/processors/cortex-r4" target="_blank">Arm Cortex-R4</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-R7 </td><td><a href="http://developer.arm.com/products/processors/cortex-r/cortex-r7" target="_blank">Arm Cortex-R7</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-R5 </td><td><a href="https://developer.arm.com/processors/cortex-r5" target="_blank">Arm Cortex-R5</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-R8 </td><td><a href="http://developer.arm.com/products/processors/cortex-r/cortex-r8" target="_blank">Arm Cortex-R8</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-R7 </td><td><a href="https://developer.arm.com/processors/cortex-r7" target="_blank">Arm Cortex-R7</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A5 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a5" target="_blank">Arm Cortex-A5</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-R8 </td><td><a href="https://developer.arm.com/processors/cortex-r8" target="_blank">Arm Cortex-R8</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A7 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a7" target="_blank">Arm Cortex-A7</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A5 </td><td><a href="https://developer.arm.com/processors/cortex-a5" target="_blank">Arm Cortex-A5</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A8 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a8" target="_blank">Arm Cortex-A8</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A7 </td><td><a href="https://developer.arm.com/processors/cortex-a7" target="_blank">Arm Cortex-A7</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A9 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a9" target="_blank">Arm Cortex-A9</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A8 </td><td><a href="https://developer.arm.com/processors/cortex-a8" target="_blank">Arm Cortex-A8</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A15 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a15" target="_blank">Arm Cortex-A15</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A9 </td><td><a href="https://developer.arm.com/processors/cortex-a9" target="_blank">Arm Cortex-A9</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A17 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a17" target="_blank">Arm Cortex-A17</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A15 </td><td><a href="https://developer.arm.com/processors/cortex-a15" target="_blank">Arm Cortex-A15</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A32 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a32" target="_blank">Arm Cortex-A32</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A17 </td><td><a href="https://developer.arm.com/processors/cortex-a17" target="_blank">Arm Cortex-A17</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A35 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a35" target="_blank">Arm Cortex-A35</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A32 </td><td><a href="https://developer.arm.com/processors/cortex-a32" target="_blank">Arm Cortex-A32</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A53 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a53" target="_blank">Arm Cortex-A53</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A35 </td><td><a href="https://developer.arm.com/processors/cortex-a35" target="_blank">Arm Cortex-A35</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A57 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a57" target="_blank">Arm Cortex-A57</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A53 </td><td><a href="https://developer.arm.com/processors/cortex-a53" target="_blank">Arm Cortex-A53</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A72 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a72" target="_blank">Arm Cortex-A72</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A57 </td><td><a href="https://developer.arm.com/processors/cortex-a57" target="_blank">Arm Cortex-A57</a> processor based device  </td></tr>
 <tr>
-<td class="XML-Token">Cortex-A73 </td><td><a href="http://developer.arm.com/products/processors/cortex-a/cortex-a73" target="_blank">Arm Cortex-A73</a> processor based device  </td></tr>
+<td class="XML-Token">Cortex-A72 </td><td><a href="https://developer.arm.com/processors/cortex-a72" target="_blank">Arm Cortex-A72</a> processor based device  </td></tr>
+<tr>
+<td class="XML-Token">Cortex-A73 </td><td><a href="https://developer.arm.com/processors/cortex-a73" target="_blank">Arm Cortex-A73</a> processor based device  </td></tr>
 <tr>
 <td class="XML-Token">* </td><td>Device based on any processor  </td></tr>
 </table>
@@ -1358,9 +1437,9 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <th>Dmpu= </th><th>Description  </th></tr>
 <tr>
-<td class="XML-Token">MPU </td><td>Memory Protection Unit is present  </td></tr>
-<tr>
 <td class="XML-Token">NO_MPU </td><td>No Memory Protection Unit is present  </td></tr>
+<tr>
+<td class="XML-Token">MPU </td><td>Memory Protection Unit is present  </td></tr>
 </table>
 <p >&#160;</p>
 <p ><a class="anchor" id="DtzEnum"></a><b>Table: Device Trust Zone </b></p>
@@ -1376,9 +1455,9 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <th>Dtz= </th><th>Description  </th></tr>
 <tr>
-<td class="XML-Token">TZ </td><td>TrustZone is present  </td></tr>
-<tr>
 <td class="XML-Token">NO_TZ </td><td>No TrustZone is present  </td></tr>
+<tr>
+<td class="XML-Token">TZ </td><td>TrustZone is present  </td></tr>
 </table>
 <p >&#160;</p>
 <p ><br  />
@@ -1395,9 +1474,9 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <th>Dsecure= </th><th>Description  </th></tr>
 <tr>
-<td class="XML-Token">Secure </td><td>Application is built to run in secure mode.  </td></tr>
-<tr>
 <td class="XML-Token">Non-secure </td><td>Application is built to run in non-secure mode.  </td></tr>
+<tr>
+<td class="XML-Token">Secure </td><td>Application is built to run in secure mode.  </td></tr>
 <tr>
 <td class="XML-Token">TZ-disabled </td><td>Application is built with TrustZone security disabled.  </td></tr>
 </table>
@@ -1417,9 +1496,9 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <th>Ddsp= </th><th>Description  </th></tr>
 <tr>
-<td class="XML-Token">DSP </td><td>DSP instructions supported  </td></tr>
-<tr>
 <td class="XML-Token">NO_DSP </td><td>No DSP instructions supported  </td></tr>
+<tr>
+<td class="XML-Token">DSP </td><td>DSP instructions supported  </td></tr>
 </table>
 <p >&#160;</p>
 <p ><br  />
@@ -1467,6 +1546,23 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <li>Dcdecp=”0xff” enables CDE on all eight co-processor interfaces.</li>
 <li>Dcdecp="0x12" enables CDE on co-processor interfaces 1 and 4.</li>
 </ul>
+<p >&#160;&lt;/p</p>
+<p ><a class="anchor" id="DpacbtiEnum"></a><b>Table: Pointer Authentication/Branch Target Identification</b></p>
+<p >The table lists values representing PAC/BTI in a device. The values can be used in the elements:</p><ul>
+<li><a class="el" href="pdsc_conditions_pg.html#element_accept">/package/conditions/condition/accept</a></li>
+<li><a class="el" href="pdsc_conditions_pg.html#element_require">/package/conditions/condition/require</a></li>
+<li><a class="el" href="pdsc_conditions_pg.html#element_deny">/package/conditions/condition/deny</a> <br  />
+</li>
+<li><a class="el" href="pdsc_family_pg.html#element_processor">/package/devices/family/.../processor</a></li>
+</ul>
+<table class="cmtable" summary="Enumeration: DpacbtiEnum">
+<tr>
+<th>DpacbtiEnum= </th><th>Description  </th></tr>
+<tr>
+<td class="XML-Token">NO_PACBTI </td><td>Non-NOP-space PAC/BTI instruction are not support.  </td></tr>
+<tr>
+<td class="XML-Token">PACBTI </td><td>Non-NOP-space PAC/BTI instructions are supported.  </td></tr>
+</table>
 <p >&#160;</p>
 <p ><a class="anchor" id="DendianEnum"></a><b>Table: Endianness</b></p>
 <p >The table lists values representing the endianness of a device. The values can be used in the elements:</p><ul>
@@ -2510,7 +2606,7 @@ $(document).ready(function(){initNavTree('pdsc_family_pg.html',''); initResizabl
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_description">description</a> </td><td>Description specific to this device. </td><td>DescriptionType </td><td>0..*  </td></tr>
 <tr>
-<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify the features of this device. </td><td>FeatureType </td><td>0..*  </td></tr>
+<td><a class="el" href="pdsc_family_pg.html#element_feature">feature</a> </td><td>Specify the features of this device. </td><td>DeviceFeatureType </td><td>0..*  </td></tr>
 <tr>
 <td><a class="el" href="pdsc_family_pg.html#element_feature">environment</a> </td><td>Specify tool options. </td><td>EnvironmentType </td><td>0..*  </td></tr>
 <tr>

@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" style="width: 163px;" src="logo.svg"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Open-CMSIS-Pack
-   &#160;<span id="projectnumber">Version 1.7.2</span>
+   &#160;<span id="projectnumber">Version 1.7.23</span>
    </div>
    <div id="projectbrief">Delivery Mechanism for Software Packs</div>
   </td>
@@ -318,9 +318,9 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <th>Child Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
 <tr>
-<td><a class="el" href="pdsc_components_pg.html#element_bundle">bundle</a> </td><td>Grouping element for a collection of inter-operable components belonging to the same Cclass </td><td>ComponentType </td><td>1..*  </td></tr>
+<td><a class="el" href="pdsc_components_pg.html#element_bundle">bundle</a> </td><td>Grouping element for a collection of inter-operable components belonging to the same Cclass. The components section must not be empty. At least one bundle or component is required. </td><td>ComponentType </td><td>0..*  </td></tr>
 <tr>
-<td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td>Grouping element for components </td><td>ComponentType </td><td>1..*  </td></tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td>component description element. The components section must not be empty. At least one component or bundle is required. </td><td>ComponentType </td><td>0..*  </td></tr>
 </table>
 <p >&#160;</p>
 <hr  />
@@ -341,15 +341,17 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td>Cclass </td><td>Defines the component class to which all components in the bundle belong. Is a mandatory part of the component ID. Predefined values can be used as listed in the table <a class="el" href="element_taxonomy.html#CclassType">Component Classes</a>.  </td><td>CclassType </td><td>required  </td></tr>
 <tr>
-<td>Cversion </td><td>Defines the version of all components contained in the bundle. The component version is a mandatory part of the component ID. The version format is described in <a class="el" href="pdsc_package_pg.html#VersionType">Version Type</a>.  </td><td>VersionType </td><td>required  </td></tr>
+<td>Cversion </td><td>Defines the component version inherited by all components contained in the bundle. The component version is a mandatory part of the component ID. The version format is described in <a class="el" href="pdsc_package_pg.html#VersionType">Version Type</a>. Note: components can redefine their version using the Cversion attribute of the component element.  </td><td>VersionType </td><td>required  </td></tr>
+<tr>
+<td>licenseSet </td><td>Reference to the <span class="XML-Token">licenseSet</span> with the given identifier <span class="XML-Token">ID</span> specified in the licenseSets section of the package description. A licenseSet describes one or more license files which in this case govern all components of this bundle. If the licenseSet is different for different components in the bundle, the licenseSet attribute is required to be assigned on a component level. </td><td>xs:string </td><td>optional  </td></tr>
+<tr>
+<td>changelog </td><td>Reference to the <span class="XML-Token">changelog</span> with the given identifier <span class="XML-Token">ID</span> specified in the changelogs section of the package description. A changelog references a text file in the pack with a path relative to the pdsc containing changelog information for all components of this bundle. If the changelog files differ for the components in the bundle, the changelog attribute is required to be set on a component level. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
 <th>Child&#160;Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
 <tr>
 <td>description </td><td>Brief description of the bundle </td><td>xs:string </td><td>1..1  </td></tr>
 <tr>
-<td>doc </td><td>Documentation for the bundle: File path, file name, and file extension in the format <b>path/name.extension</b>. The file path is relative to the root directory of the Pack. </td><td>xs:string </td><td><p class="starttd">1..1 </p>
-<p class="endtd"></p>
-</td></tr>
+<td>doc </td><td>Documentation for the bundle: File path, file name, and file extension in the format <b>path/name.extension</b>. The file path is relative to the root directory of the Pack. </td><td>xs:string </td><td>1..1  </td></tr>
 <tr>
 <td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td>Grouping element for components. </td><td>ComponentType </td><td>1..*  </td></tr>
 </table>
@@ -391,15 +393,21 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td>maxInstances </td><td>Maximum allowed instances of a component in a project. Default is <span class="XML-Token">1</span> for one instance. The range is [<span class="XML-Token">1..10</span>]. </td><td>xs:integer </td><td>optional  </td></tr>
 <tr>
-<td>isDefaultVariant </td><td>Identifies this component variant to be the preferred variant for tool driven selection [Version 1.4.0] </td><td>xs:boolean </td><td>optional </td></tr>
+<td>isDefaultVariant </td><td>Identifies this component variant to be the preferred variant for tool driven selection through an automated dependency resolution algorithm [Version 1.4.0]. Note: It is the component vendor's responsibility to have only a single component variant having this attribute enabled. </td><td>xs:boolean </td><td>optional  </td></tr>
 <tr>
 <td>generator </td><td>This links the component with a generator description located in the same file. If this component is selected by the run time configuration, the tool will test whether the configured <a class="el" href="pdsc_generators_pg.html">gpdsc file</a> does already exist or not. If the file is not present, then the command specified by the referenced generator section, will be invoked. If the gpdsc file already exists it will be included into the project </td><td>xs:string </td><td>optional  </td></tr>
+<tr>
+<td>licenseSet </td><td>Reference to the <span class="XML-Token">licenseSet</span> with the given identifier <span class="XML-Token">ID</span> specified in the licenseSets section of the package description. A licenseSet describes one or more license files that govern the component. </td><td>xs:string </td><td>optional  </td></tr>
+<tr>
+<td>view </td><td>Defines the user view of this component. A component may be hidden, for example when it is managed by a generator. </td><td><a class="el" href="pdsc_components_pg.html#ViewType">ViewType</a> </td><td>optional  </td></tr>
+<tr>
+<td>changelog </td><td>Reference to the <span class="XML-Token">changelog</span> with the given identifier <span class="XML-Token">ID</span> specified in the changelogs section of the package description. A changelog references a text file in the pack with a path relative to the pdsc containing changelog information for the component. The content of the referenced changelog file is not required to be exclusively used for a single component. </td><td>xs:string </td><td>optional  </td></tr>
+<tr>
+<th>Child Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
 <tr>
 <td>deprecated </td><td>When set to <span class="XML-Token">true</span>, then the component is deprecated and no longer maintained. Default is <span class="XML-Token">false</span> to indicate an actively maintained component. </td><td>xs:boolean  </td><td>0..1   </td></tr>
 <tr>
 <td>description </td><td>Brief description of the component. </td><td>xs:string  </td><td>1..1  </td></tr>
-<tr>
-<th>Child Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
 <tr>
 <td>RTE_Components_h </td><td>Source code that is copied into the file <a class="el" href="pdsc_components_pg.html#RTE_Components_h">RTE_Components.h</a> when the component is selected by the run time environment configuration. </td><td>xs:string  </td><td>0..1   </td></tr>
 <tr>
@@ -409,8 +417,31 @@ Pre_Include_Local_Component_h</h1>
 <p class="endtd"></p>
 </td></tr>
 <tr>
-<td><a class="el" href="pdsc_components_pg.html#element_files">files</a> </td><td>Grouping element for all files that are part of this component. </td><td>group </td><td>1  </td></tr>
+<td><a class="el" href="pdsc_components_pg.html#element_files">files</a> </td><td>Grouping element for all files that are part of this component. </td><td>group </td><td><p class="starttd">1 </p>
+<p class="endtd"></p>
+</td></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_extensions">extensions</a> </td><td>Grouping element for all extensions concerning this component. </td><td>group </td><td>1  </td></tr>
 </table>
+<p >&#160;</p>
+<p ><a class="anchor" id="ViewType"></a><b>View Type</b></p>
+<p >The ViewType defines the user view of a component in component selection windows (i.e. Manage Run-Time Environment or Manage Software Components) and command line tools for the component list command.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">ViewType   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>always</b> (default)   </td><td class="markdownTableBodyNone">Component is always presented to the user. It appears in component selection windows and is listed as available component.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><b>never</b>   </td><td class="markdownTableBodyNone">Component is never presented to the user as it contains supportive files, i.e. for a generator. However it can be explicitly requested by an user, i.e. with the <code>component:</code> node.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>maskable</b>   </td><td class="markdownTableBodyNone">It is the choice of the tool to hide this component. A tool may offer an option to show such components.   </td></tr>
+</table>
+<p ><b>Examples:</b></p>
+<ol type="1">
+<li>Component <b>A</b> that requires sub-components <b>A1</b> and <b>A2</b>. These components may have the attribute view="maskable" as it makes no sense to select just <b>A1</b> or <b>A2</b>.</li>
+<li>Component <b>B1</b>, <b>B2</b>, and <b>B3</b> all require component <b>B-core</b>, but <b>B-core</b> on it's own makes no sense. The component <b>B-core</b> may have the attribute view="maskable" as it makes no sense to select just it.</li>
+<li>Component <b>G</b> contains files that are required by a generator, but does not contain any direct usable source files. The component <b>G</b> may have the attribute view="never" as it should be not user selectable.</li>
+</ol>
 <p >&#160;</p>
 <p ><a class="anchor" id="CsubType"></a><b>Component Subgroups</b></p>
 <p >Component Subgroups are specified by the element <em><b>Csub</b>,</em> and create subcategories within Component Classes (<em><b>Cclass</b>)</em> and Component Groups (<em><b>Cgroup</b>)</em>. A <em><b>Csub</b> name</em> is of type <em>xs:string</em> with a length between 3 and 32 characters. No <b><em>Csub</em> names</b> have been predefined.</p>
@@ -505,21 +536,27 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td>name </td><td>File path, file name, and file extension in the format <b>path/name.extension</b>. The file path is relative to the root directory of the Pack. </td><td>xs:string </td><td>required  </td></tr>
 <tr>
-<td>path </td><td>for <b>category="header"</b> the path attribute explicitly can be used to specify the include path to be added to the commandline of the build tools, specifying an imcomplete path. This way the include file requires the specification of the subdirectory (e.g. #include "sub_dir/includeFile.h") which can act as acting as namespace for header files which otherwise have the same name. </td><td>xs:string </td><td>optional  </td></tr>
+<td>path </td><td>for <b>category="header"</b> the path attribute explicitly can be used to specify the include path to be added to the commandline of the build tools, specifying an incomplete path. This way the include file requires the specification of the subdirectory (e.g. #include "sub_dir/includeFile.h") which can act as acting as namespace for header files which otherwise have the same name. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
 <td>category </td><td>Defines the purpose of the file. Select the predefined value as listed in the table <a class="el" href="pdsc_components_pg.html#FileCategoryEnum">File Categories</a>. </td><td><a class="el" href="pdsc_components_pg.html#FileCategoryEnum">FileCategoryEnum</a> </td><td>required  </td></tr>
+<tr>
+<td>language </td><td>Defines the language of the file category <span class="XML-Token">source</span>, <span class="XML-Token">header</span>, <span class="XML-Token">include</span>. Select one of the predefined value as listed in the table <a class="el" href="pdsc_components_pg.html#FileLanguageAttributeType">File Language Attribute</a>. If not specified, a source file is identified based on known file extensions, header files and include paths will be applied for all tools. </td><td><a class="el" href="pdsc_components_pg.html#FileLanguageAttributeType">FileLanguageAttributeType</a> </td><td>optional  </td></tr>
+<tr>
+<td>scope </td><td>Defines the visibility of <span class="XML-Token">header</span> and <span class="XML-Token">include</span>. Select one of the predefined value as listed in the table <a class="el" href="pdsc_components_pg.html#FileScopeAttributeType">File Scope Attribute</a>. If not specified, a header file is considered <span class="XML-Token">visible</span> and an include path is considered <span class="XML-Token">public</span>. </td><td><a class="el" href="pdsc_components_pg.html#FileScopeAttributeType">FileScopeAttributeType</a> </td><td>optional </td></tr>
 <tr>
 <td>attr </td><td>Defines the special use and handling of a file. Select a predefined value as defined in the table <a class="el" href="pdsc_components_pg.html#FileAttributeEnum">File Attributes</a>.  </td><td><a class="el" href="pdsc_components_pg.html#FileAttributeEnum">FileAttributeEnum</a> </td><td>optional  </td></tr>
 <tr>
 <td>condition </td><td>Enter the identifier (attribute <em><b>id</b></em>) of a <a class="el" href="pdsc_conditions_pg.html#element_condition">condition</a>. The element is used if the condition resolves to <span class="XML-Token">true</span>. If the condition resolves to <span class="XML-Token">false</span>, then the element will be ignored. For example, a library might be specific for a certain toolchain or processor instruction set. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
-<td>select </td><td>Brief description and purpose of the file. The <b><em>select</em></b> attribute is <b>required</b> when <b><em>attr</em></b> is set to <span class="XML-Token">template</span> or <span class="XML-Token">interface</span>. When multiple template files of a component have the same <b><em>select</em></b> string, they are treated as a single selectable template. This way, multiple template or interface files can be bundled. </td><td>xs:string </td><td>optional  </td></tr>
+<td>select </td><td>Brief description and purpose of the file. The <b><em>select</em></b> attribute is <b>required</b> when <b><em>attr</em></b> is set to <span class="XML-Token">template</span>. When multiple template files of a component have the same <b><em>select</em></b> string, they are treated as a single selectable template. This way, multiple template or interface files can be bundled. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
 <td>src </td><td>Path information. The path is specified relative to the Pack Description File. If <em><b>category</b> is</em> set to <span class="XML-Token">library</span>, then the <em><b>src</b> string</em> can contain a list of directory paths separated by semicolons. A debugger will search those paths for locating the source files of the modules archived in the library supporting the debugging of library code. </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
 <td>version </td><td>File-specific version information. This is used particularly for files copied into the project workspace. Before a file gets copied, a version check avoids unnecessary copy actions. If a file does not have a version, then the component version is used. The version format is described in <a class="el" href="pdsc_package_pg.html#VersionType">Version Type</a>. </td><td>VersionType </td><td>optional  </td></tr>
 <tr>
 <td>public </td><td>Set publishing permissions for the documentation. If <em>&lt;public&gt;</em> is <span class="XML-Token">true</span>, then the vendor gives permission to extract the documentation from the pack and publish it on a web-page. Links to web pages are assumed to be public. The default value is <span class="XML-Token">false</span>. </td><td>xs:boolean </td><td>optional  </td></tr>
+<tr>
+<td>projectpath </td><td>View location path for a file of component inside IDE project explorer view. When a component is selected into a project, IDE can use it to construct component file view location path inside the IDE project explorer view. It gives component files a better organization view instead of just flat placing them in the project explorer. IDE can also directly ignore this attribute, then all files of the component will be flat placed inside the project explorer view under Cclass. </td><td>xs:string </td><td>optional  </td></tr>
 </table>
 <p >&#160;</p>
 <p ><a class="anchor" id="FileAttributeEnum"></a><b>Table: File Attributes</b></p>
@@ -556,7 +593,7 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td class="XML-Token">object </td><td>Object file that can be added to the application  </td></tr>
 <tr>
-<td class="XML-Token">source </td><td>Startup-, system-, and other C/C++, assembler, etc. source files  </td></tr>
+<td class="XML-Token">source </td><td>Startup-, system-, and other C/C++, assembler, etc. source files. Relying on commonly used file extensions.  </td></tr>
 <tr>
 <td class="XML-Token">sourceC </td><td>C source file  </td></tr>
 <tr>
@@ -574,7 +611,117 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td class="XML-Token">preIncludeLocal </td><td>The specified file is added as a pre-include file to the compiler command line for all modules of the <b>component</b> (locally).  </td></tr>
 <tr>
+<td class="XML-Token">genSource </td><td>The specified file is a source file which is exclusively used by the generator associated with this component specified by attribute <em>generator</em>.  </td></tr>
+<tr>
+<td class="XML-Token">genHeader </td><td>The specified file is a header file which is exclusively used by the generator associated with this component specified by attribute <em>generator</em>.  </td></tr>
+<tr>
+<td class="XML-Token">genParams </td><td>The specified file is a parameter file which is exclusively used by the generator associated with this component specified by attribute <em>generator</em>.  </td></tr>
+<tr>
+<td class="XML-Token">genAsset </td><td>The specified file is an asset file which is exclusively used by the generator associated with this component specified by attribute <em>generator</em>. it is up to the generator to identify purpose and format of the file by name or file type.  </td></tr>
+<tr>
 <td class="XML-Token">other </td><td>Other file types not covered in the list above  </td></tr>
+</table>
+<p >&#160;</p>
+<hr  />
+<p ><a class="anchor" id="FileLanguageAttributeType"></a><b>Table: File Language Attribute</b></p>
+<p >File language attribute type defines the language for <span class="XML-Token">source</span>, <span class="XML-Token">header</span> and <span class="XML-Token">include</span> file categories. Based on the language the information is used by language specific build tools.</p>
+<p >File language attribute is used in the following elements:</p><ul>
+<li><a class="el" href="pdsc_components_pg.html#element_file">/package/.../files/file</a></li>
+<li><a class="el" href="pdsc_generators_pg.html#element_gen_file">/package/generators/generator/files/file</a></li>
+</ul>
+<p >The table lists the predefined values for a file language. </p><table class="cmtable" summary="Type: FileLanguageAttributeType">
+<tr>
+<th>language= </th><th>Description  </th></tr>
+<tr>
+<td class="XML-Token">asm </td><td>The file information is passed to an assembler.  </td></tr>
+<tr>
+<td class="XML-Token">c </td><td>The file information is passed to a C compiler.  </td></tr>
+<tr>
+<td class="XML-Token">cpp </td><td>The file information is passed to a C++ compiler.  </td></tr>
+<tr>
+<td class="XML-Token">c-cpp </td><td>The file information is passed to both C- as well as C++ compiler.  </td></tr>
+<tr>
+<td class="XML-Token">link </td><td>The file information is passed to a linker.  </td></tr>
+</table>
+<p >&#160;</p>
+<hr  />
+<p ><a class="anchor" id="FileScopeAttributeType"></a><b>Table: File Scope Attribute</b></p>
+<p >File scope attribute type defines the visibility of <span class="XML-Token">header</span> file and <span class="XML-Token">include</span> path file categories. Based on the specified scope header files are <span class="XML-Token">visible</span> or <span class="XML-Token">hidden</span> and include paths are <span class="XML-Token">public</span> or <span class="XML-Token">private</span>.</p>
+<p >File language attribute is used in the following elements:</p><ul>
+<li><a class="el" href="pdsc_components_pg.html#element_file">/package/.../files/file</a></li>
+<li><a class="el" href="pdsc_generators_pg.html#element_gen_file">/package/generators/generator/files/file</a></li>
+</ul>
+<p >The table lists the predefined values for the scope attribute. </p><table class="cmtable" summary="Type: FileScopeAttributeType">
+<tr>
+<th>scope= </th><th>Description  </th></tr>
+<tr>
+<td class="XML-Token">visible </td><td>Applies to file elements of category <span class="XML-Token">header</span> only and is ignored otherwise. A token{visible} header file is suggested for inclusion by other modules and is considered the contract of the component.  </td></tr>
+<tr>
+<td class="XML-Token">hidden </td><td>Applies to file elements of category <span class="XML-Token">header</span> only and is ignored otherwise. A token{hidden} header file is indicating an internal header file which must not be explicitly included by modules outside of the scope of the component. The information contained in here may change in between component versions but does not affect the compatibility of the visible header files.  </td></tr>
+<tr>
+<td class="XML-Token">public </td><td>Applies to file elements of category <span class="XML-Token">include</span> only and is ignored otherwise. A token{public} include path is added to the command line for building any modules of the specified language.  </td></tr>
+<tr>
+<td class="XML-Token">private </td><td>Applies to file elements of category <span class="XML-Token">include</span> only and is ignored otherwise. A token{private} include path is added to the command line for building any module of the component for the specified language.  </td></tr>
+</table>
+<p >&#160;</p>
+<hr  />
+ <h1><a class="anchor" id="element_extensions"></a>
+/package/.../extensions</h1>
+<p >The group <b>extensions</b> can appear in various Pack elements. This group is the frame for defining individual extensions.</p>
+<p ><b>Example:</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
+<div class="line">  ...</div>
+<div class="line">  &lt;components&gt;</div>
+<div class="line">    &lt;component Cclass=<span class="stringliteral">&quot;Device&quot;</span> Cgroup=<span class="stringliteral">&quot;Startup&quot;</span> Cversion=<span class="stringliteral">&quot;3.1.1&quot;</span> &gt;</div>
+<div class="line">      &lt;extensions&gt;</div>
+<div class="line">        ...</div>
+<div class="line">      &lt;/extensions&gt;</div>
+<div class="line">    &lt;/component&gt;</div>
+<div class="line">  &lt;/components&gt;</div>
+<div class="line">  ...</div>
+<div class="line">&lt;/package&gt;</div>
+</div><!-- fragment --><p >&#160;</p>
+<table class="cmtable" summary="Element: Extensions">
+<tr>
+<th>Parents </th><th colspan="3">Element Chain  </th></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td colspan="3"><a class="el" href="pdsc_components_pg.html#element_component">/package/components/component</a>  </td></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td colspan="3"><a class="el" href="pdsc_components_pg.html#element_component">/package/components/bundle/component</a>  </td></tr>
+<tr>
+<th>Child&#160;Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_extension">extension</a> </td><td>Frame for the individual <a class="el" href="pdsc_components_pg.html#element_extension">extension</a> of a component. </td><td>group </td><td>1..*  </td></tr>
+</table>
+<p >&#160;</p>
+<hr  />
+<h1><a class="anchor" id="element_extension"></a>
+/package/.../extensions/extension</h1>
+<p >The element <b>extension</b> is the mechanism to attach additional attributes to the software. This attribute is a key/value pair that is fully defined by the component designer. The possible values are not imposed by this specification.</p>
+<p ><b>Example:</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
+<div class="line">  ...</div>
+<div class="line">  &lt;components&gt;</div>
+<div class="line">    &lt;component Cclass=<span class="stringliteral">&quot;Device&quot;</span> Cgroup=<span class="stringliteral">&quot;Startup&quot;</span> Cversion=<span class="stringliteral">&quot;3.1.1&quot;</span> &gt;</div>
+<div class="line">      &lt;extensions&gt;</div>
+<div class="line">        &lt;extension key=<span class="stringliteral">&quot;auxiliary&quot;</span> value=<span class="stringliteral">&quot;true&quot;</span>/&gt;</div>
+<div class="line">      &lt;/extensions&gt;</div>
+<div class="line">    &lt;/component&gt;</div>
+<div class="line">  &lt;/components&gt;</div>
+<div class="line">  ...</div>
+<div class="line">&lt;/package&gt;</div>
+</div><!-- fragment --><p >&#160;</p>
+<table class="cmtable" summary="Element: Extension">
+<tr>
+<th>Parents </th><th colspan="3">Element Chain  </th></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_extensions">extensions</a> </td><td colspan="3"><a class="el" href="pdsc_components_pg.html#element_extensions">/package/components/component/extensions</a>  </td></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_extensions">extensions</a> </td><td colspan="3"><a class="el" href="pdsc_components_pg.html#element_extensions">/package/components/bundle/component/extensions</a>  </td></tr>
+<tr>
+<th>Attributes </th><th>Description </th><th>Type </th><th>Use  </th></tr>
+<tr>
+<td>key </td><td>key identifying this extension. This must be unique per component. </td><td>xs:string </td><td>required  </td></tr>
+<tr>
+<td>value </td><td>value associated to the key. </td><td>xs:string </td><td>optional  </td></tr>
 </table>
 <p >&#160;</p>
 <hr  />

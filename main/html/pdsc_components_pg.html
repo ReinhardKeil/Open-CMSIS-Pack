@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" style="width: 163px;" src="logo.svg"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Open-CMSIS-Pack
-   &#160;<span id="projectnumber">Version 1.7.23</span>
+   &#160;<span id="projectnumber">Version 1.7.31</span>
    </div>
    <div id="projectbrief">Delivery Mechanism for Software Packs</div>
   </td>
@@ -105,7 +105,8 @@ $(document).ready(function(){initNavTree('pdsc_components_pg.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p >The element <a class="el" href="pdsc_components_pg.html#element_components">/package/components</a> describes software components contained in the Pack. A component lists the files that belong to a component and that are relevant for a project. The component itself or each individual file may refer to a <a class="el" href="pdsc_conditions_pg.html#element_condition">condition</a> that must resolve to true; if it is false the component or file is not applicable in the given context.</p>
-<p >Each component must have a class (Cclass=) and/or bundle (Cbundle), a group (Cgroup=), and a version (Cversion=) which is used to identify the component. Optionally, a component may have a sub-group (Csub=) and variant (Cvariant=) to add further categories. A component is identified by the class/bundle, group, sub-group, variant and version information together with the vendor specified by the pack. A component vendor must ensure that the combination of class/bundle, group, sub-group, version, and variant is unique and not used by multiple components (after evaluating filter <a class="el" href="pdsc_conditions_pg.html">conditions</a>).</p>
+<p >Each component must have a class (Cclass=), a group (Cgroup=), and a version (Cversion=) which is used to identify the component. Optionally, a component may have a bundle (Cbundle=), sub-group (Csub=) and variant (Cvariant=) to add further categories. A component is identified by the class/bundle, group, sub-group, variant and version information together with the vendor specified by the pack or explicitly specifying the (Cvendor=) for a component. The component vendor must ensure that the combination of class/bundle, group, sub-group, version, and variant is unique and not used by multiple components (after evaluating filter <a class="el" href="pdsc_conditions_pg.html">conditions</a>).</p>
+<p >Note: The selection of multiple variants of the same component is mutually exclusive and must not be supported by tools. Graphical user interfaces may use drop down boxes for selecting a component variant.</p>
 <p ><b>Example</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
 <div class="line">  ...</div>
 <div class="line">  &lt;components&gt;</div>
@@ -192,7 +193,9 @@ $(document).ready(function(){initNavTree('pdsc_components_pg.html',''); initResi
 </div><!-- fragment --><p >&#160;</p>
 <h1><a class="anchor" id="Component_Bundle"></a>
 Component Bundle</h1>
-<p >In case multiple inter-dependent components that belong to the same <b>Cclass</b> form part of a solution, these can be grouped into a <em>bundle</em>. A <em>bundle</em> specifies identical attributes <b>Cclass</b>, <b>Cversion</b> and optionally <b>Cgroup</b> and <b>Cvendor</b> for several components. Components within a bundle inherit these attributes set by the bundle and cannot alter these attributes. Bundles ensure consistency of attributes across multiple interworking components and restrict the mix and match of components within a Cclass from different Software Packs.</p>
+<p >In case multiple inter-dependent components that belong to the same <b>Cclass</b> form part of a solution, these can be grouped into a <em>bundle</em>. A component bundle is a named set of components that must share identical attributes for <b>Cvendor</b> and <b>Cclass</b> by introducing the attribute <b>Cbundle</b>, which becomes a mandatory part of the component ID. If the attribute <b>Cvendor</b> is not specified in the <b>bundle</b> element, the value is inherited from the pack level <b>vendor</b> element.</p>
+<p >The attributes <b>Cvendor</b>, <b>Cclass</b>, <b>Cbundle</b> as well as <b>Cversion</b> are inherited by all <b>component</b> elements within a <b>bundle</b> section. Only the <b>Cversion</b> attribute can be redefined in the <b>component</b> elements.</p>
+<p >Components of the same <b>Cclass</b> belonging to a different <b>Cbundle</b> shall not be selected concurrently. In this way bundles ensure interoperability across multiple components and restrict the mix and match of components within a <b>Cclass</b>.</p>
 <p >An example of a <b>bundle</b> is shown in the <a class="el" href="cp_PackTutorial.html#cp_BundleExample">Create a BSP Bundle</a> section where the bundle is used to deliver board support files for a certain development platform.</p>
 <h1><a class="anchor" id="Component_Files"></a>
 Component Files</h1>
@@ -380,10 +383,9 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td>Csub </td><td>Defines the component subgroup. Is an optional part of the component ID. The type is described in <a class="el" href="pdsc_components_pg.html#CsubType">Component Subgroups</a>. </td><td><a class="el" href="pdsc_components_pg.html#CsubType">CsubType</a> </td><td>optional  </td></tr>
 <tr>
-<td>Cvariant </td><td>Defines a variant of a component. Is an optional part of the component ID. The variant specifier is a brief string (for example: <span class="XML-Token">release</span>, <span class="XML-Token">debug</span>).  </td><td>xs:string [3..32] </td><td>optional  </td></tr>
+<td>Cvariant </td><td>Defines a variant of a component. Is an optional part of the component ID. The variant specifier is a brief string (for example: <span class="XML-Token">release</span>, <span class="XML-Token">debug</span>). Note: The selection of component variants is mutually exclusive.  </td><td>xs:string [1..32] </td><td>optional  </td></tr>
 <tr>
-<td>Cversion </td><td>Defines the version of this component. Is a mandatory part of the component ID. The version format is described in <a class="el" href="pdsc_package_pg.html#VersionType">Version Type</a>. <br  />
- <span class="XML-Token">Must not be specified for a component within a bundle.</span> </td><td><a class="el" href="pdsc_package_pg.html#VersionType">VersionType</a> </td><td>required  </td></tr>
+<td>Cversion </td><td>Defines the version of this component. Is a mandatory part of the component ID. The version format is described in <a class="el" href="pdsc_package_pg.html#VersionType">Version Type</a>. </td><td><a class="el" href="pdsc_package_pg.html#VersionType">VersionType</a> </td><td>required  </td></tr>
 <tr>
 <td>Capiversion </td><td>For components that are based on an <a class="el" href="pdsc_apis_pg.html">API header files</a>, it defines the version of the API used by this component. It ensures that the API header file with the same or higher version is acceptable for using that component. The version format is described in <a class="el" href="pdsc_package_pg.html#VersionType">Version Type</a>.  </td><td>VersionType </td><td>optional  </td></tr>
 <tr>
@@ -393,7 +395,7 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td>maxInstances </td><td>Maximum allowed instances of a component in a project. Default is <span class="XML-Token">1</span> for one instance. The range is [<span class="XML-Token">1..10</span>]. </td><td>xs:integer </td><td>optional  </td></tr>
 <tr>
-<td>isDefaultVariant </td><td>Identifies this component variant to be the preferred variant for tool driven selection through an automated dependency resolution algorithm [Version 1.4.0]. Note: It is the component vendor's responsibility to have only a single component variant having this attribute enabled. </td><td>xs:boolean </td><td>optional  </td></tr>
+<td>isDefaultVariant </td><td>Identifies this component variant to be the preferred variant for tool driven selection through an automated update algorithm [Version 1.4.0]. If in a new version of a component variants are introduced, the default variant is automatically selected if only the component without variant is specified. This variant is supposed to be the most compatible continuation of the previous component version. Note: It is the component vendor's responsibility to have only a single component variant having this attribute enabled. </td><td>xs:boolean </td><td>optional  </td></tr>
 <tr>
 <td>generator </td><td>This links the component with a generator description located in the same file. If this component is selected by the run time configuration, the tool will test whether the configured <a class="el" href="pdsc_generators_pg.html">gpdsc file</a> does already exist or not. If the file is not present, then the command specified by the referenced generator section, will be invoked. If the gpdsc file already exists it will be included into the project </td><td>xs:string </td><td>optional  </td></tr>
 <tr>
@@ -413,15 +415,13 @@ Pre_Include_Local_Component_h</h1>
 <tr>
 <td>Pre_Include_Global_h </td><td>Source code that is copied into the file <a class="el" href="pdsc_components_pg.html#Pre_Include_Global_h">Pre_Include_Global_h</a> when the component is selected by the run time environment configuration. </td><td>xs:string  </td><td>0..1   </td></tr>
 <tr>
-<td>Pre_Include_Local_Component_h </td><td>Source code that is copied into the file <a class="el" href="pdsc_components_pg.html#Pre_Include_Local_Component_h">Pre_Include_Local_Component_h</a> &lt;Cclass&gt;_&lt;Component_name&gt;.h when the component is selected by the run time environment configuration. </td><td>xs:string  </td><td><p class="starttd">0..1  </p>
-<p class="endtd"></p>
-</td></tr>
+<td>Pre_Include_Local_Component_h </td><td>Source code that is copied into the file <a class="el" href="pdsc_components_pg.html#Pre_Include_Local_Component_h">Pre_Include_Local_Component_h</a> &lt;Cclass&gt;_&lt;Component_name&gt;.h when the component is selected by the run time environment configuration. </td><td>xs:string  </td><td>0..1   </td></tr>
 <tr>
-<td><a class="el" href="pdsc_components_pg.html#element_files">files</a> </td><td>Grouping element for all files that are part of this component. </td><td>group </td><td><p class="starttd">1 </p>
-<p class="endtd"></p>
-</td></tr>
+<td><a class="el" href="pdsc_components_pg.html#element_files">files</a> </td><td>Grouping element for all files that are part of this component. </td><td>group </td><td>1  </td></tr>
 <tr>
 <td><a class="el" href="pdsc_components_pg.html#element_extensions">extensions</a> </td><td>Grouping element for all extensions concerning this component. </td><td>group </td><td>1  </td></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component_environments">environments</a> </td><td>Grouping element for all environments concerning this component. </td><td>group </td><td>0..1  </td></tr>
 </table>
 <p >&#160;</p>
 <p ><a class="anchor" id="ViewType"></a><b>View Type</b></p>
@@ -665,7 +665,7 @@ Pre_Include_Local_Component_h</h1>
 </table>
 <p >&#160;</p>
 <hr  />
- <h1><a class="anchor" id="element_extensions"></a>
+<h1><a class="anchor" id="element_extensions"></a>
 /package/.../extensions</h1>
 <p >The group <b>extensions</b> can appear in various Pack elements. This group is the frame for defining individual extensions.</p>
 <p ><b>Example:</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
@@ -725,7 +725,40 @@ Pre_Include_Local_Component_h</h1>
 </table>
 <p >&#160;</p>
 <hr  />
- </div></div><!-- contents -->
+<h1><a class="anchor" id="element_component_environments"></a>
+/package/.../environments</h1>
+<p >The group <b>environments</b> can appear in <a class="el" href="pdsc_components_pg.html#element_component">component</a> element. This group is the frame for defining individual <a class="el" href="pdsc_components_pg.html#element_component_environment">environment</a>.</p>
+<p ><b>Example:</b> </p><div class="fragment"><div class="line">&lt;package&gt;</div>
+<div class="line">  ...</div>
+<div class="line">  &lt;components&gt;</div>
+<div class="line">    &lt;component Cclass=<span class="stringliteral">&quot;Device&quot;</span> Cgroup=<span class="stringliteral">&quot;Startup&quot;</span> Cversion=<span class="stringliteral">&quot;3.1.1&quot;</span> &gt;</div>
+<div class="line">      &lt;environments&gt;</div>
+<div class="line">        ...</div>
+<div class="line">      &lt;/environments&gt;</div>
+<div class="line">    &lt;/component&gt;</div>
+<div class="line">  &lt;/components&gt;</div>
+<div class="line">  ...</div>
+<div class="line">&lt;/package&gt;</div>
+</div><!-- fragment --><p >&#160;</p>
+<table class="cmtable" summary="Element: Environments">
+<tr>
+<th>Parents </th><th colspan="3">Element Chain  </th></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td colspan="3"><a class="el" href="pdsc_components_pg.html#element_component">/package/components/component</a>  </td></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component">component</a> </td><td colspan="3"><a class="el" href="pdsc_components_pg.html#element_component">/package/components/bundle/component</a>  </td></tr>
+<tr>
+<th>Child&#160;Elements </th><th>Description </th><th>Type </th><th>Occurrence  </th></tr>
+<tr>
+<td><a class="el" href="pdsc_components_pg.html#element_component_environment">environment</a> </td><td>Specify tool options. </td><td>EnvironmentType </td><td>1..*  </td></tr>
+</table>
+<p >&#160;</p>
+<hr  />
+<h1><a class="anchor" id="element_component_environment"></a>
+/package/.../environments/environment</h1>
+<p >See description at <a class="el" href="pdsc_family_pg.html#element_environment">/package/devices/family/.../environment</a>.</p>
+<p >&#160;</p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

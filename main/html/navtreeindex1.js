@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"pdsc_family_pg.html#element_trace_traceport":[6,15,1,30],
+"pdsc_family_pg.html#element_variant":[6,15,1,32],
+"pdsc_generators_pg.html":[6,14],
+"pdsc_generators_pg.html#element_gen_argument":[6,14,7],
 "pdsc_generators_pg.html#element_gen_command":[6,14,6],
 "pdsc_generators_pg.html#element_gen_eclipse":[6,14,4],
 "pdsc_generators_pg.html#element_gen_exe":[6,14,3],
@@ -19,8 +23,9 @@ var NAVTREEINDEX1 =
 "pdsc_parts_pg.html":[6,17],
 "pdsc_parts_pg.html#element_part":[6,17,1],
 "pdsc_parts_pg.html#element_part_book":[6,17,3],
-"pdsc_parts_pg.html#element_part_environment":[6,17,4],
+"pdsc_parts_pg.html#element_part_environment":[6,17,5],
 "pdsc_parts_pg.html#element_part_feature":[6,17,2],
+"pdsc_parts_pg.html#element_part_image":[6,17,4],
 "pdsc_parts_pg.html#element_parts":[6,17,0],
 "sdf_pg.html":[10],
 "sdf_pg.html#autotoc_md10":[10,4,2],

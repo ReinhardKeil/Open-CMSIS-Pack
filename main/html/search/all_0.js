@@ -7,7 +7,7 @@ var searchData=
   ['_2fpackage_2fclayers_20element_4',['/package/clayers element',['../pdsc_clayers_pg.html',1,'packFormat']]],
   ['_2fpackage_2fcomponents_20element_5',['/package/components element',['../pdsc_components_pg.html',1,'packFormat']]],
   ['_2fpackage_2fconditions_20element_6',['/package/conditions element',['../pdsc_conditions_pg.html',1,'packFormat']]],
-  ['_2fpackage_2fdescription_20element_7',['/package/description element',['../element_description.html',1,'packFormat']]],
+  ['_2fpackage_2fdescription_20element_7',['/package/description element',['../element_package_description.html',1,'packFormat']]],
   ['_2fpackage_2fdevices_20element_8',['/package/devices element',['../pdsc_devices_pg.html',1,'packFormat']]],
   ['_2fpackage_2fdevices_2ffamily_20element_9',['/package/devices/family element',['../pdsc_family_pg.html',1,'pdsc_devices_pg']]],
   ['_2fpackage_2fdominate_20element_10',['/package/dominate element',['../element_dominate.html',1,'packFormat']]],
